@@ -1,9 +1,10 @@
 class Player
-  attr_accessor :player1_name, :player2_name
+  attr_accessor :player1_name, :player2_name, :player_names
 
   def initialize()
     @player1_name
     @player2_name
+    @player_names
   end
 
   def get_player_names
@@ -11,9 +12,11 @@ class Player
     @player1_name = get_input
     puts 'Enter name of player 2:'
     @player2_name = get_input
-    { @player1_name => 'X', @player2_name => 'O' }
+    @player_names = { @player1_name => 'X', @player2_name => 'O' }
   end
-
+  
+  private
+  
   def get_input
     gets.chomp
   end
