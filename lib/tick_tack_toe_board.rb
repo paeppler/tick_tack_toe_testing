@@ -10,7 +10,7 @@ class Board
 
   def initialize(players = Player.new)
     @players = players
-    @current_player 
+    @current_player
     @board = (1..9).to_a
   end
 
@@ -31,11 +31,17 @@ class Board
   end 
 
   def print_board
-    puts "\n #{@board[0]} | #{@board[1]} | #{@board[2]}"
-    puts "---+---+---"
-    puts " #{@board[3]} | #{@board[4]} | #{@board[5]}"
-    puts "---+---+---"
-    puts " #{@board[6]} | #{@board[7]} | #{@board[8]}\n\n"
+    puts <<-HEREDOC
+
+
+            #{@board[0]} | #{@board[1]} | #{@board[2]}
+           ---+---+---
+            #{@board[3]} | #{@board[4]} | #{@board[5]}
+           ---+---+---
+            #{@board[6]} | #{@board[7]} | #{@board[8]}
+
+
+    HEREDOC
   end
 
   def create_current_player
@@ -50,7 +56,7 @@ class Board
         set_input(input)
         break
       else 
-        puts 'Incorrect Input. Try again.'
+        puts "\e[31mIncorrect Input. Try again.\e[0m"
       end
     end
     print_board
@@ -76,12 +82,10 @@ class Board
     if game_over? && WINNING_COMBINATIONS.any? do |combo|
                       combo.all? { |position| @board[position - 1] == @players.player_names[@current_player] }
                       end
-      puts "Game Over! #{@current_player} wins!"
-      # break
+      puts "\e[32mGame Over! #{@current_player} wins!\e[0m"
       return true
     elsif game_over?
       puts 'Game Over! Its a tie'
-      # break
       return true
     else 
       return false
