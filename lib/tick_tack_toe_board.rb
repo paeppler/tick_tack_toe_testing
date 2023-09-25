@@ -94,7 +94,7 @@ class Board
   
   def game_over?
     WINNING_COMBINATIONS.any? do |combo|
-      combo.all? { |position| @board[position - 1] == @players.player_names[@current_player] }
+      combo.all? { |position| @board[position - 1] == 'X' || @board[position - 1] == 'O' }
     end || @board.all? { |square| square == 'X' || square == 'O' }
   end
 

@@ -42,19 +42,50 @@ describe Board do
       expect(board).to receive(:input_prompt).once
       board.play_round
     end
-  end
+  end  
 
+  
   describe '#game_over?' do
-    context 'winning combination is achieved' do    
+    context 'board is new' do
+      it 'returns false' do
+        expect(board.game_over?).to be false
+      end
+    end
     
-      xit 'returns true' do
-        expect(board.game_over?).to eq(true)
-        board.game_over?
+    context 'winning combination is achieved' do  
+      before do
+      end   
+      
+      it 'returns true when X wins' do
+        board.instance_variable_set(:@board, ['X', 'X', 'X', 4, 5, 6, 7, 8, 9])
+        expect(board.game_over?).to be true      
+      end
+
+      it 'returns true when O wins' do  
+        board.instance_variable_set(:@board, [1, 2, 3, 'O', 'O', 'O', 7, 8, 9])
+        expect(board.game_over?).to be true      
+      end
+    end
+
+    context 'game is a tie' do 
+      it 'returns true' do
+        board.instance_variable_set(:@board, ['X', 'O', 'X', 'O', 'X', 'O', 'O', 'X', 'O'])
+        expect(board.game_over?).to be true      
       end
     end    
   end
+
+  describe '#switch_player' do
+    it 'switches current player to player2' do
+      board.switch_player
+      expect(board.instance_variable_get(:@current_player)).to eq(players.player2_name)
+    end
+
+    it 'switches current player back to player1' do
+      board.switch_player
+      board.switch_player
+      expect(board.instance_variable_get(:@current_player)).to eq(players.player1_name)
+    end
+  end
 end
 
-# board.instance_variable_set(:@board, ['X', 'X', 'X', 4, 5, 6, 7, 8, 9])
-# board.instance_variable_set(:@current_player, 'bob')
-# @players.instance_variable_set(:@player_names['bob'], 'X')
